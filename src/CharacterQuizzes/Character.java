@@ -1,5 +1,7 @@
+package CharacterQuizzes;
+
 /**
- *
+ * Holds a character-definition pair.
  *
  * @author Ben Jammin'
  */

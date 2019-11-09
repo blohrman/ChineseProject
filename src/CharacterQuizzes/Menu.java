@@ -1,3 +1,5 @@
+package CharacterQuizzes;
+
 import java.io.PrintStream;
 import java.io.FileOutputStream;
 import java.io.FileNotFoundException;
