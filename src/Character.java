@@ -1,3 +1,8 @@
+/**
+ *
+ *
+ * @author Ben Jammin'
+ */
 public class Character {
 
     private String character = "";

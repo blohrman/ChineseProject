@@ -5,10 +5,23 @@ import java.util.InputMismatchException;
 import java.util.Scanner;
 import java.util.ArrayList;
 
+/**
+ * Class for the quiz functionality.
+ *
+ * @author Ben Jammin'
+ */
 public class CharacterQuiz {
 
+    /**
+     * ArrayList of character objects used for the quiz.
+     */
     private static ArrayList<Character> quiz = new ArrayList<Character>();
 
+    /**
+     * Main functionality.
+     *
+     * @param args - accepts no args
+     */
     public static void main(String[] args) {
         Scanner scan = new Scanner(System.in);
 
@@ -25,6 +38,12 @@ public class CharacterQuiz {
 
     }
 
+    /**
+     * Gets the chapter number the user wants to be quizzed over.
+     *
+     * @param scan - scanner for user input
+     * @return - returns the chapter number the user wants
+     */
     public static int getChapterNumber(Scanner scan) {
         int userNum = 0;
         System.out.print("What chapter would you like to practice? ");
@@ -43,6 +62,12 @@ public class CharacterQuiz {
 
     }
 
+    /**
+     * Reads the file of the chapter specified by the user.
+     *
+     * @param scan - scanner for user input (used for getChapterNumber)
+     * @throws FileNotFoundException - throws this is the user's specified file doesn't exist
+     */
     private static void readFile(Scanner scan) throws FileNotFoundException {
 
         int userNum = getChapterNumber(scan);
@@ -61,10 +86,16 @@ public class CharacterQuiz {
 
     }
 
+    /**
+     * Gets the type of quiz the user wants to take.
+     *
+     * @param scan - scanner for user input
+     * @return - returns the type of quiz the user wants
+     */
     private static int getQuizType(Scanner scan) {
         int userNum = 0;
 
-        System.out.print("Would you like to see:\n " +
+        System.out.println("Would you like to see:\n " +
                         "1. The Chinese characters...\n " +
                         "2. The English definitions...?");
 
@@ -83,6 +114,11 @@ public class CharacterQuiz {
         return userNum;
     }
 
+    /**
+     * Quizzes the user.
+     *
+     * @param scan - scanner for user input
+     */
     private static void quiz(Scanner scan) {
         int quizType = getQuizType(scan);
 
@@ -96,6 +132,11 @@ public class CharacterQuiz {
         }
     }
 
+    /**
+     * Quiz for Chinese characters with English user input.
+     *
+     * @param scan - scanner for user input
+     */
     private static void chineseCharQuiz(Scanner scan) {
 
         while (!(quiz.isEmpty())) {
@@ -113,6 +154,11 @@ public class CharacterQuiz {
         }
     }
 
+    /**
+     * Quiz for English words with Chinese user input.
+     *
+     * @param scan - scanner for user input
+     */
     private static void englishDefinitionQuiz(Scanner scan) {
 
         while (!(quiz.isEmpty())) {

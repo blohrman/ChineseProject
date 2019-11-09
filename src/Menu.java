@@ -8,10 +8,23 @@ import java.util.Scanner;
 import java.util.ArrayList;
 import java.util.InputMismatchException;
 
+/**
+ * Class that allows the user to choose what they want to do and goes from there.
+ *
+ * @author Ben Jammin'
+ */
 public class Menu {
 
+    /**
+     * ArrayList used to write to file.
+     */
     private static ArrayList<Character> charList = new ArrayList<Character>();
 
+    /**
+     * Main functionality.
+     *
+     * @param args - takes no args
+     */
     public static void main(String[] args) {
         Scanner scan = new Scanner(System.in);
         int userNum = welcomeText(scan);
@@ -36,6 +49,12 @@ public class Menu {
 
     }
 
+    /**
+     * Gets the number of the chapter the user wants to study/create vocabulary for.
+     *
+     * @param scan - scanner for user input
+     * @return - returns the chapter as an integer
+     */
     public static int getChapterNumber(Scanner scan) {
         int userNum = 0;
         System.out.print("What chapter are you adding vocabulary to/creating? ");
@@ -56,10 +75,14 @@ public class Menu {
 
     }
 
+    /**
+     * Adds the character objects to the specified file.
+     *
+     * @param scan - scanner for user input
+     * @throws FileNotFoundException - throws this if the file isn't found
+     */
     public static void addCharactersToFile(Scanner scan) throws FileNotFoundException {
         int num = getChapterNumber(scan);
-
-        //scan.nextLine();
 
         getCharactersToAdd(scan);
 
@@ -74,6 +97,11 @@ public class Menu {
 
     }
 
+    /**
+     * Asks the user to input a pair of a Chinese word with an English definition and stores it in an ArrayList.
+     *
+     * @param scan - scanner for user input
+     */
     public static void getCharactersToAdd(Scanner scan) {
         String line = "";
 
@@ -101,6 +129,11 @@ public class Menu {
 
     }
 
+    /**
+     * Creates a new file if the user requests to.
+     *
+     * @param scan - scanner for user input
+     */
     public static void createNewFile(Scanner scan) {
         int userNum = getChapterNumber(scan);
 
@@ -121,6 +154,12 @@ public class Menu {
 
     }
 
+    /**
+     * Prints welcome menu.
+     *
+     * @param scan - scanner for user input
+     * @return - returns the user's selection of what to do
+     */
     public static int welcomeText(Scanner scan) {
         int userInput = 0;
         System.out.println("Hello! Would you like to: \n" +
