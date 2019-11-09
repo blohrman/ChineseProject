@@ -8,36 +8,36 @@ import java.util.Scanner;
 import java.util.ArrayList;
 import java.util.InputMismatchException;
 
-public class AddCharacter {
-    ArrayList<Character> charList = new ArrayList<Character>();
+public class Menu {
+
+    private static ArrayList<Character> charList = new ArrayList<Character>();
 
     public static void main(String[] args) {
-        int userNum = welcomeText();
+        Scanner scan = new Scanner(System.in);
+        int userNum = welcomeText(scan);
 
         switch(userNum) {
             case 1:
+                CharacterQuiz.main(null);
                 break;
             case 2:
+                try {
+                    addCharactersToFile(scan);
+                } catch (FileNotFoundException e) {
+                    System.out.println("Whoops! Looks like that chapter hasn't been created yet!");
+                    System.exit(1);
+                }
                 break;
-                    /*try {
-                        addCharactersToFile();
-                    } catch (FileNotFoundException e) {
-                        System.out.println("Whoops! Looks like that chapter hasn't been created yet!");
-                        System.exit(1);
-                    }*/
             case 3:
-                createNewFile();
+                createNewFile(scan);
         }
 
-    }
-
-    public static void createNewFile(int num) throws FileNotFoundException {
+        scan.close();
 
     }
 
-    public static int getChapterNumber() {
+    public static int getChapterNumber(Scanner scan) {
         int userNum = 0;
-        Scanner scan = new Scanner(System.in);
         System.out.print("What chapter are you adding vocabulary to/creating? ");
 
         boolean thrown = true;
@@ -50,28 +50,34 @@ public class AddCharacter {
             }
         }
 
-
-        scan.close();
+        scan.nextLine();
 
         return userNum;
 
     }
 
-    public static void addCharactersToFile() throws FileNotFoundException {
-        int num = getChapterNumber();
+    public static void addCharactersToFile(Scanner scan) throws FileNotFoundException {
+        int num = getChapterNumber(scan);
 
-        File file = new File(".charfiles/Chapter" + num + ".txt");
+        //scan.nextLine();
+
+        getCharactersToAdd(scan);
+
+        File file = new File("./charfiles/chapter" + num + ".txt");
         PrintStream print = new PrintStream(new FileOutputStream(file, true));
+
+        for (int i = 0; i < charList.size(); i++) {
+            print.println(charList.get(i).getCharacter() + " " + charList.get(i).getMeaning());
+        }
 
         print.close();
 
     }
 
-    public static void getCharactersToAdd() {
-        Scanner scan = new Scanner(System.in);
+    public static void getCharactersToAdd(Scanner scan) {
         String line = "";
 
-        System.out.println("Input the character and translation you would like to add separated by a space! ");
+        System.out.print("Input the character and translation you would like to add separated by a space! ");
         line = scan.nextLine();
 
         String character = "";
@@ -83,14 +89,22 @@ public class AddCharacter {
 
         Character newChar = new Character(character, translation);
 
-        scan.close();
+        charList.add(newChar);
+
+        String cont = "";
+        System.out.print("Would you like to add another character? ");
+        cont = scan.next();
+
+        if (cont.equals("y")) {
+            getCharactersToAdd(scan);
+        }
 
     }
 
-    public static void createNewFile() {
-        Scanner scan = new Scanner(System.in);
+    public static void createNewFile(Scanner scan) {
+        int userNum = getChapterNumber(scan);
 
-        int userNum = getChapterNumber();
+        scan.nextLine();
 
         try {
             File file = new File("./charfiles/chapter" + userNum + ".txt");
@@ -105,12 +119,9 @@ public class AddCharacter {
             System.exit(1);
         }
 
-
     }
 
-    public static int welcomeText() {
-        Scanner scan = new Scanner(System.in);
-
+    public static int welcomeText(Scanner scan) {
         int userInput = 0;
         System.out.println("Hello! Would you like to: \n" +
                 "1. Practice existing vocabulary...\n" +
@@ -122,6 +133,8 @@ public class AddCharacter {
             System.out.println("Please enter 1, 2, or 3.");
             userInput = scan.nextInt();
         }
+
+        scan.nextLine();
 
         return userInput;
     }
